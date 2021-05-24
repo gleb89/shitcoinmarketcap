@@ -9,11 +9,13 @@ from rest_framework_simplejwt import views as jwt_views
 
 from apps.coins.views import CoinsViewSet ,CoinsPaginationViewSet
 from apps.users.views import UserCreate
+from apps.comments.views import CommentsViewSet
 
 router = routers.DefaultRouter()
 router.register(r'coins', CoinsPaginationViewSet, basename='Coinspaginator')
 router.register(r'coinslist',CoinsViewSet, basename='Coins')
 router.register(r'user',UserCreate, basename='User')
+router.register(r'comments',CommentsViewSet, basename='Commentsr')
 
 
 

@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.contenttypes.fields import GenericRelation
+from apps.comments.models import Comments
 
 class Exchange(models.Model):
     name = models.CharField('Название рынка', max_length=255)
@@ -39,6 +40,7 @@ class Coins(models.Model):
                                             )
     price_exc = models.CharField('Изменение % 24ч', max_length=255,blank=True, null=True)
     board_price =  models.JSONField(encoder=None)
+    comments = GenericRelation(Comments)
     
     
 
@@ -49,3 +51,11 @@ class Coins(models.Model):
     class Meta:
         verbose_name = 'Coin'
         verbose_name_plural = 'Coins'
+
+
+class Note(models.Model):
+    """
+    A note consists of some text, and 0 or more descriptive tags.
+    """
+    text = models.CharField(max_length=1000)
+    tags = GenericRelation(Comments)
