@@ -3,6 +3,12 @@
 from pathlib import Path
 import os
 
+
+
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,7 +22,7 @@ SECRET_KEY = 'django-insecure-s%2p*3c2-qj89ew(a2%oy#5ntt8ee*u^2v9=n_vd-e!*1l#-8u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','mysite.com']
 
 
 # Application definition
@@ -99,25 +105,34 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ff',
-        'USER' : 'postgres',
-        'PASSWORD' : '241281',
-        'HOST' : 'localhost',
-        'PORT' : '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'mydb.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'HOST': 'db',
+#         'POSTGRES_PASSWORD':'postgres',
+#         'PORT': 5432,
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'db_name',
+#         'USER' : 'db_user',
+#         'PASSWORD' : 'db_password',
+#         'HOST' : '0.0.0.0',
+#         'PORT' : 5432,
+#     }
+# }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'mydb.sqlite3'),
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

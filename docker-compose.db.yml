@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    container_name: db
+    restart: always
+    image: "postgres:13-alpine"
+    restart: always
+    ports:
+        - "5432"
+    volumes:
+      - ./postgres_data/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_password
+      - POSTGRES_DB=db_name
+      - DB_HOST=0.0.0.0
+    networks:
+      - backands_network
+
+networks:
+  backands_network:
+    driver: bridge

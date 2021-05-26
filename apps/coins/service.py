@@ -1,7 +1,8 @@
 import datetime
-from requests import Request, Session
-from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import time
+from requests import Session
+
+
 
 
 from .models import Coins
@@ -21,7 +22,9 @@ def get_chart_data(id):
     today_date = datetime.date.today() - datetime.timedelta(days=days)
     
     while days >=1:
-        url_price_7d = f'https://api.coingecko.com/api/v3/coins/{id}/history?date={today_date.strftime("%d-%m-%Y")}'
+        url_price_7d = f'''
+        https://api.coingecko.com/api/v3/coins/{id}/history?date={today_date.strftime("%d-%m-%Y")}
+        '''
         response_price_7d = session.get(url_price_7d)
         data_price = response_price_7d.json()
         data_price_today = int(data_price['market_data']['current_price']['usd'])
@@ -59,7 +62,14 @@ def get_update_price_coins():
         time.sleep(delay)  
         for coin in Coins.objects.all():
             print(coin)
-            coin.price, coin.market_cap, coin.volume, coin.image, coin.price_exc, coin.board_price = update_price_coin(coin.name)
+            (
+                coin.price,
+                coin.market_cap,
+                coin.volume,
+                coin.image,
+                coin.price_exc,
+                coin.board_price
+                ) = update_price_coin(coin.name)
             coin.save()
 
 

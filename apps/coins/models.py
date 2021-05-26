@@ -6,10 +6,9 @@ from apps.comments.models import Comments
 
 class Exchange(models.Model):
     name = models.CharField('Название рынка', max_length=255)
-    image          = models.ImageField('Главное изображение',
-                            upload_to='images',
-                                        blank=True, null=True)
-    slug = models.SlugField('URL рынка', max_length=100, unique=True)
+    image = models.CharField('Изображение биржи', max_length=255, null=True)
+    slug = models.SlugField('slug', max_length=100, unique=True)
+    trade_url = models.CharField('link', max_length=255)
 
     def __str__(self):
         return self.name
