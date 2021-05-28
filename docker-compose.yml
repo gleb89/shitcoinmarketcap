@@ -1,35 +1,37 @@
 version: '3'
 
 services:
-  db:
-    container_name: db
-    restart: always
-    image: "postgres:13-alpine"
-    restart: always
-    ports:
-        - "5432"
-    volumes:
-      - ./postgres_data/:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=db_user
-      - POSTGRES_PASSWORD=db_password
-      - POSTGRES_DB=db_name
-      - DB_HOST=0.0.0.0
-    networks:
-      - backands_network
+  # db:
+  #   container_name: db
+  #   restart: always
+  #   image: "postgres:13-alpine"
+  #   restart: always
+  #   ports:
+  #       - "5432"
+  #   volumes:
+  #     - ./postgres_data/:/var/lib/postgresql/data/
+  #   environment:
+  #     - POSTGRES_USER=db_user
+  #     - POSTGRES_PASSWORD=db_password
+  #     - POSTGRES_DB=db_name
+  #     - DB_HOST=0.0.0.0
+  #   networks:
+  #     - backands_network
 
   djapi:
     restart: always
-    build: .
-    depends_on:
-      - db
-    command: gunicorn config.wsgi --bind 0.0.0.0:8080
+    build: ./scr
+    # depends_on:
+    #   - db
+    command: gunicorn config.wsgi --bind 0.0.0.0:80
+    # command: python manage.py runserver 0.0.0.0:8080 
+
     networks:
       - backands_network
 
   nginx:
     image: nginx:1.13
-    restart: unless-stopped
+    restart: always
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
     depends_on: 
