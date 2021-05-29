@@ -1,28 +1,28 @@
 # shitcoinsmarketcap
+## Service to display scam coins and tokens
+***
+## Build and run the container
 
-## touch .env
-## enviroment
-   - POSTGRES_USER
-   - POSTGRES_PASSWORD
-   - POSTGRES_DB
-   - LOGIN_EMAIL
-   - PASSWORD_EMAIL
-   - SECRET_KEY
-   - API_KEY_COIN
-   - URL_PRICE
+1. Install Docker.
 
+2. Create a `.env` file 
 
-#### - Docker start
-### docker-compose up --build
-### docker-compose up -d
-### docker-compose -f docker-compose.yml logs -f
+    ```
+    # Environment settings for local development.
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=postgres
+   POSTGRES_DB=241281
+    ```
 
 
-#### - localhost start
-### virtualenv env
-### sourse/env/bin/activate
-### pip install -r requirements.txt
-### python manage.py makemigrations
-### python manage.py migrate
-### python manage.py createsuperuser
-### python manage.py runserver
+3. On the command line, within this directory, do this to build the image and
+   start the container:
+
+        docker-compose run djapi python manage.py migrate --noinput
+        docker-compose run djapi python manage.py createsuperuser
+        docker-compose up --build
+        docker-compose up -d
+        docker-compose -f docker-compose.yml logs -f
+
+
+4. Open http://0.0.0.0:80 in your browser.
