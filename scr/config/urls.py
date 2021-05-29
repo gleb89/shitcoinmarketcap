@@ -20,8 +20,8 @@ router.register(r'comments', CommentsViewSet, basename='Commentsr')
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('openapi/', get_schema_view(
+    path('api/admin/', admin.site.urls),
+    path('api/openapi/', get_schema_view(
         title="Your Project",
         description="API for all things …",
         version="1.0.0"

@@ -25,4 +25,4 @@
         docker-compose -f docker-compose.yml logs -f
 
 
-4. Open http://0.0.0.0:80 in your browser.
+4. Open http://0.0.0.0:80/api/v1 in your browser.

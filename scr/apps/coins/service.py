@@ -2,16 +2,13 @@ import datetime
 import time
 from requests import Session
 
-
-
-
 from .models import Coins
-from config.keysetting import config
+
 
 
 session = Session()
 
-delay = 15000
+delay = 10000
 
  
 
