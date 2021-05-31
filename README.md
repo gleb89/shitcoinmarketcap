@@ -26,3 +26,14 @@
 
 
 4. Open http://0.0.0.0:80/api/v1 in your browser.
+
+5. if deploy:
+
+        rename file ~~docker-compose.prod.yml~~ - docker-compose.yml
+        chmod +x init-letsencrypt.sh
+        ./init-letsencrypt.sh
+        docker-compose run djapi python manage.py migrate --noinput
+        docker-compose run djapi python manage.py createsuperuser
+        docker-compose up --build
+        docker-compose up -d
+    
