@@ -1,6 +1,31 @@
 # shitcoinsmarketcap
-## Service to display scam coins and tokens
+## Service to display scam coins and tokens 
+
+    
+    
+    ├── apps
+    |   ├── coins
+    |   ├── comments
+        ├── core
+        └── users
+    ├── config
+    |   ├── settings.py
+    |   ├── urls.py
+        ├── wsgi.py
+        ├── asgi.py
+    |   └── keysetting.py
+    ├── data
+    |   ├── nginx
+    |       └──app.conf
+    ├── static
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── requirements.txt
+    
+    
 ***
+
+
 ## Build and run the container
 
 1. Install Docker.
