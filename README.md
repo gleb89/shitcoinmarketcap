@@ -27,7 +27,7 @@
 
 4. Open http://0.0.0.0:80/api/v1 in your browser.
 
-5. if deploy - rename file  -  <strike>docker-compose.prod.yml</strike> docker-compose.yml and <strike>docker-compose.yml </strike> docker-compose.dev.yml< :
+5. if deploy - rename file  -  <strike>docker-compose.prod.yml</strike> docker-compose.yml and <strike>docker-compose.yml </strike> docker-compose.dev.yml :
 
         
         chmod +x init-letsencrypt.sh
