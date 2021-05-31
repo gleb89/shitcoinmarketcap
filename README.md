@@ -1,18 +1,18 @@
 # shitcoinsmarketcap
-## Service to display scam coins and tokens 
-
+### Service to display scam coins and tokens 
+***
     
-    
+### Application structure   
     ├── apps
     |   ├── coins
     |   ├── comments
-        ├── core
-        └── users
+    |   ├── core
+    |   └── users
     ├── config
     |   ├── settings.py
     |   ├── urls.py
-        ├── wsgi.py
-        ├── asgi.py
+    |   ├── wsgi.py
+    |   ├── asgi.py
     |   └── keysetting.py
     ├── data
     |   ├── nginx
@@ -20,10 +20,11 @@
     ├── static
     ├── Dockerfile
     ├── docker-compose.yml
-    ├── requirements.txt
+    └─ requirements.txt
     
     
-***
+    
+
 
 
 ## Build and run the container
