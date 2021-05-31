@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(wrpf.site www.wrpf.site)
+domains=(apicrypto.ru www.apicrypto.ru)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="glebhleb89@icloud.com" # Adding a valid address is strongly recommended
