@@ -8,7 +8,7 @@ from .models import Coins
 
 session = Session()
 
-delay = 10000
+delay = 3500
 
  
 
