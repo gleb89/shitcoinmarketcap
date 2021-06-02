@@ -30,7 +30,7 @@ class Coins(models.Model):
     image = models.CharField('Изображение монеты', max_length=255, null=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     price = models.IntegerField('Цена монеты',default=0)
-    market_cap = models.TextField('Капитализация', blank=True, null=True)
+    market_cap = models.IntegerField('Капитализация', blank=True, null=True)
     volume = models.TextField('Обьемы', blank=True, null=True)
     market_exchange = models.ManyToManyField(
                                             Exchange,
