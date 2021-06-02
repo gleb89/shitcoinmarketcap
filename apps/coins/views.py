@@ -12,7 +12,7 @@ from .serializer import CoinsSerializer
 
 class CoinsPaginationViewSet(viewsets.ModelViewSet):
 
-    queryset = Coins.objects.all().order_by('id')
+    queryset = Coins.objects.all().order_by('market_cap')
     serializer_class = CoinsSerializer
     paginate_by = 1
     pagination_class = PageNumberPagination
