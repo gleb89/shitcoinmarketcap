@@ -54,6 +54,7 @@ def get_exchanges_list():
     for exchange in data:
         counter = counter+1
         exchange_pk = exchange['id']
+        print(counter)
         if counter== 60:
             counter = 0
             time.sleep(60)
