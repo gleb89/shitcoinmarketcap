@@ -10,7 +10,7 @@ class ExchangeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exchange
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug','image']
 
 
 class CoinsSerializer(serializers.ModelSerializer):

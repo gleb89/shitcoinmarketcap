@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Coins
-from .service import get_update_price_coins, get_chart_data
-from .serializer import CoinsSerializer
+from .models import Coins, Exchange
+from .service import get_update_price_coins, get_exchanges_list
+from .serializer import CoinsSerializer, ExchangeSerializer
 
 
 class CoinsPaginationViewSet(viewsets.ModelViewSet):
@@ -31,6 +31,19 @@ class CoinsViewSet(viewsets.ViewSet):
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
         return Response(serializer.data)
 
+
+class ExchangeViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        """ 
+
+        список бирж
+
+        """
+        get_exchanges_list()
+        queryset = Exchange.objects.all()
+        serializer = ExchangeSerializer(queryset, many=True, read_only=True)
+        return Response(serializer.data)
 
 thread = threading.Thread(target=get_update_price_coins)
 thread.start()
