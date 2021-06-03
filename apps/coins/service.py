@@ -8,7 +8,7 @@ from .models import Coins
 
 session = Session()
 
-delay = 3500
+delay = 35000
 
  
 
@@ -41,8 +41,8 @@ def update_price_coin(coin_symbol):
     response = session.get(url)
     data = response.json()
     price_7d = get_chart_data(coin_symbol)
-    price = int(data['market_data']['current_price']['usd'])
-    market_cap = int(data['market_data']['market_cap']['usd'])
+    price = data['market_data']['current_price']['usd']
+    market_cap = data['market_data']['market_cap']['usd']
     volume = int(data['market_data']['total_volume']['usd'])
     image = str(data['image']['small'])
     price_exc = int(data['market_data']['price_change_percentage_24h'])
