@@ -106,24 +106,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': POSTGRES_DB,
-        'USER': POSTGRES_USER,
-        'HOST': 'pgdata' ,
-        'PASSWORD':POSTGRES_PASSWORD,
-        'PORT': 5432,
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': POSTGRES_DB,
+#         'USER': POSTGRES_USER,
+#         'HOST': 'pgdata' ,
+#         'PASSWORD':POSTGRES_PASSWORD,
+#         'PORT': 5432,
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
+}
 
 
 
