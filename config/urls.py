@@ -16,7 +16,7 @@ router.register(r'coins', CoinsPaginationViewSet, basename='Coinspaginator')
 router.register(r'coinslist', CoinsViewSet, basename='Coins')
 router.register(r'user', UserCreate, basename='User')
 router.register(r'comments', CommentsViewSet, basename='Commentsr')
-router.register(r'exchange', ExchangeViewSet, basename='Exchange')
+# router.register(r'exchange', ExchangeViewSet, basename='Exchange')
 
 
 urlpatterns = [
