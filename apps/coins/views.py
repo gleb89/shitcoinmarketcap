@@ -6,8 +6,15 @@ from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
 from .models import Coins, Exchange
-from .service import get_update_price_coins, get_exchanges_list
+from .service import (get_update_price_coins,
+                            get_exchanges_list,
+                            get_market_coins
+                            )
 from .serializer import CoinsSerializer, ExchangeSerializer
+
+
+
+
 
 
 class CoinsPaginationViewSet(viewsets.ModelViewSet):
@@ -18,6 +25,7 @@ class CoinsPaginationViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
 
 
+
 class CoinsViewSet(viewsets.ViewSet):
 
     def list(self, request):
@@ -26,7 +34,11 @@ class CoinsViewSet(viewsets.ViewSet):
         список обьектов без пагинации
 
         """
-
+        try:
+            coins_not_echange = Coins.objects.filter(market_exchange=None)
+            get_market_coins(coins_not_echange)
+        except:
+            pass
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
         return Response(serializer.data)

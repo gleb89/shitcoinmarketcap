@@ -35,7 +35,9 @@ class Coins(models.Model):
     market_exchange = models.ManyToManyField(
                                             Exchange,
                                             related_name="market_list",
-                                            verbose_name='торгуется на рынках'
+                                            verbose_name='торгуется на рынках',
+                                            blank=True
+                                            
                                             )
     price_exc = models.CharField('Изменение % 24ч', max_length=255,blank=True, null=True)
     board_price =  models.JSONField(encoder=None)

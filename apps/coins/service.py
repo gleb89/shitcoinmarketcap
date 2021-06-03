@@ -6,8 +6,8 @@ import requests
 from .models import Coins, Exchange
 
 headers = {
-  'Accepts': 'application/json'
-  
+    'Accepts': 'application/json'
+
 }
 
 session = Session()
@@ -21,7 +21,7 @@ def get_exchange(pk):
     print(data, pk)
     echange_db = Exchange.objects.filter(name=pk).first()
     if echange_db:
-        return 
+        return
     else:
         try:
             url = f'https://api.coingecko.com/api/v3/exchanges/{pk}'
@@ -36,7 +36,7 @@ def get_exchange(pk):
                 image=image,
                 slug=slug,
                 trade_url=trade_url
-                )
+            )
             exchange.save()
 
             print('сохранено-', exchange.id)
@@ -45,7 +45,6 @@ def get_exchange(pk):
             print('none')
 
 
- 
 def get_exchanges_list():
     counter = 0
     url = 'https://api.coingecko.com/api/v3/exchanges/list'
@@ -55,28 +54,28 @@ def get_exchanges_list():
         counter = counter+1
         exchange_pk = exchange['id']
         print(counter)
-        if counter== 60:
+        if counter == 60:
             counter = 0
             time.sleep(60)
         time.sleep(5)
         get_exchange(exchange_pk)
-        
 
 
 def get_chart_data(id):
     list_price_7d = {}
     days = 7
     today_date = datetime.date.today() - datetime.timedelta(days=days)
-    
-    while days >=1:
+
+    while days >= 1:
         url_price_7d = f'''
         https://api.coingecko.com/api/v3/coins/{id}/history?date={today_date.strftime("%d-%m-%Y")}
         '''
         response_price_7d = session.get(url_price_7d)
         data_price = response_price_7d.json()
-        data_price_today = int(data_price['market_data']['current_price']['usd'])
-        today_date = datetime.date.today()  - datetime.timedelta(days=days-1)
-        list_price_7d[str(days)]=data_price_today
+        data_price_today = int(
+            data_price['market_data']['current_price']['usd'])
+        today_date = datetime.date.today() - datetime.timedelta(days=days-1)
+        list_price_7d[str(days)] = data_price_today
         days = days - 1
     return list_price_7d
 
@@ -85,8 +84,8 @@ def update_price_coin(coin_symbol):
     """
         get item url
     """
-    
-    name_coin = coin_symbol.lower() 
+
+    name_coin = coin_symbol.lower()
     url = f'https://api.coingecko.com/api/v3/coins/{name_coin}/'
     response = session.get(url)
     data = response.json()
@@ -96,17 +95,16 @@ def update_price_coin(coin_symbol):
     volume = int(data['market_data']['total_volume']['usd'])
     image = str(data['image']['small'])
     price_exc = int(data['market_data']['price_change_percentage_24h'])
-    
+
     return price, market_cap, volume, image, price_exc, price_7d
 
-    
 
 def get_update_price_coins():
     """
         update price
-    """ 
+    """
     while True:
-        time.sleep(delay)  
+        time.sleep(delay)
         for coin in Coins.objects.all():
             print(coin)
             (
@@ -116,16 +114,23 @@ def get_update_price_coins():
                 coin.image,
                 coin.price_exc,
                 coin.board_price
-                ) = update_price_coin(coin.name)
+            ) = update_price_coin(coin.name)
             coin.save()
 
 
+def add_market_for_coin(market_id, coin):
+    exchange = Exchange.objects.filter(name=market_id).first()
+    print(exchange)
+    if exchange:
+        coin.market_exchange.add(exchange)
 
 
+def get_market_coins(coins):
 
-
-
-
-
-
-
+    for coin in coins:
+        url = f'https://api.coingecko.com/api/v3/coins/{coin}/tickers'
+        response = session.get(url)
+        data = response.json()
+        for market in data['tickers']:
+            market_name = market['market']['identifier']
+            add_market_for_coin(market_name.title(), coin)
