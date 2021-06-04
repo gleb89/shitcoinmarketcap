@@ -14,6 +14,8 @@ session = Session()
 session.headers.update(headers)
 delay = 3500
 
+
+
 def save_exchange(pk):
     
     url = f'https://api.coingecko.com/api/v3/exchanges/{pk}'
@@ -30,9 +32,10 @@ def save_exchange(pk):
                 trade_url=trade_url
             )
     exchange.save()
-
     print('сохранено-', exchange.name)
     return exchange
+
+
 
 def get_exchange(pk):
 
@@ -53,6 +56,8 @@ def get_exchange(pk):
             print('none')
 
 
+
+
 def get_exchanges_list():
 
     """
@@ -68,6 +73,8 @@ def get_exchanges_list():
         print(counter)  
         time.sleep(2)  
         get_exchange(exchange_pk)
+
+
 
 
 def get_chart_data(id):
@@ -94,6 +101,8 @@ def get_chart_data(id):
     return list_price_7d
 
 
+
+
 def update_price_coin(coin_symbol):
 
     """
@@ -114,6 +123,8 @@ def update_price_coin(coin_symbol):
     return price, market_cap, volume, image, price_exc, price_7d
 
 
+
+
 def get_update_price_coins():
 
     """
@@ -123,7 +134,7 @@ def get_update_price_coins():
     while True:
         time.sleep(delay)
         for coin in Coins.objects.all():
-            time.sleep(2)
+            
             print(coin)
             (
                 coin.price,
@@ -134,6 +145,8 @@ def get_update_price_coins():
                 coin.board_price
             ) = update_price_coin(coin.name)
             coin.save()
+            time.sleep(4)
+
 
 
 def add_market_for_coin(market_id, coin):
@@ -153,6 +166,8 @@ def add_market_for_coin(market_id, coin):
     else:
         print('add')
         coin.market_exchange.add(exchange)
+
+
 
 
 def get_market_coins(coins):

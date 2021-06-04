@@ -7,8 +7,8 @@ from rest_framework.pagination import PageNumberPagination
 
 from .models import Coins, Exchange
 from .service import (get_update_price_coins,
-                            get_exchanges_list,
-                            get_market_coins
+                            get_market_coins,
+                            save_data_coin
                             )
 from .serializer import CoinsSerializer, ExchangeSerializer
 
