@@ -52,8 +52,8 @@ class ExchangeViewSet(viewsets.ViewSet):
         список бирж
 
         """
-        thread = threading.Thread(target=get_exchanges_list)
-        thread.start()
+        # thread = threading.Thread(target=get_exchanges_list)
+        # thread.start()
         
         queryset = Exchange.objects.all()
         serializer = ExchangeSerializer(queryset, many=True, read_only=True)
