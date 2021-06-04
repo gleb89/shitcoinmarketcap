@@ -12,7 +12,7 @@ headers = {
 
 session = Session()
 session.headers.update(headers)
-delay = 20
+delay = 50
 
 
 def get_exchange(pk):
@@ -133,7 +133,6 @@ def get_update_price_coins():
                 coin.board_price
             ) = update_price_coin(coin.name)
             coin.save()
-            time.sleep(5)
 
 
 def add_market_for_coin(market_id, coin):
