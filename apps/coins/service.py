@@ -1,7 +1,7 @@
 import datetime
 import time
 from requests import Session
-import requests
+
 
 from .models import Coins, Exchange
 
@@ -12,10 +12,15 @@ headers = {
 
 session = Session()
 session.headers.update(headers)
-delay = 35000
+delay = 3500
 
 
 def get_exchange(pk):
+
+    """
+        get exchange data for name exchange
+    """
+
     url = f'https://api.coingecko.com/api/v3/exchanges/{pk}'
     data = session.get(url)
     print(data, pk)
@@ -46,6 +51,10 @@ def get_exchange(pk):
 
 
 def get_exchanges_list():
+
+    """
+        get names list coins all 
+    """
     counter = 0
     url = 'https://api.coingecko.com/api/v3/exchanges/list'
     response_exchanges = session.get(url)
@@ -62,6 +71,11 @@ def get_exchanges_list():
 
 
 def get_chart_data(id):
+
+    """
+        history data (price 7d) coin name
+    """
+
     list_price_7d = {}
     days = 7
     today_date = datetime.date.today() - datetime.timedelta(days=days)
@@ -81,8 +95,9 @@ def get_chart_data(id):
 
 
 def update_price_coin(coin_symbol):
+
     """
-        get item url
+        get name_coin  url
     """
 
     name_coin = coin_symbol.lower()
@@ -100,9 +115,11 @@ def update_price_coin(coin_symbol):
 
 
 def get_update_price_coins():
+
     """
-        update price
+        update price coin
     """
+
     while True:
         time.sleep(delay)
         for coin in Coins.objects.all():
@@ -119,6 +136,11 @@ def get_update_price_coins():
 
 
 def add_market_for_coin(market_id, coin):
+
+    """
+        add many to many Exchange for coin
+    """
+
     exchange = Exchange.objects.filter(name=market_id).first()
     print(exchange)
     if exchange:
@@ -126,6 +148,10 @@ def add_market_for_coin(market_id, coin):
 
 
 def get_market_coins(coins):
+
+    """
+        get markets for coin id
+    """
 
     for coin in coins:
         url = f'https://api.coingecko.com/api/v3/coins/{coin}/tickers'
