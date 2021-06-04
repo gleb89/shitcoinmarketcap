@@ -34,11 +34,7 @@ class CoinsViewSet(viewsets.ViewSet):
         список обьектов без пагинации
 
         """
-        try:
-            coins_not_echange = Coins.objects.filter(market_exchange=None)
-            get_market_coins(coins_not_echange)
-        except:
-            pass
+
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
         return Response(serializer.data)
@@ -51,11 +47,13 @@ class ExchangeViewSet(viewsets.ViewSet):
 
         список бирж
 
-        """
-
-        
-        thread = threading.Thread(target=get_exchanges_list)
-        thread.start()
+        """  
+        try:
+            coins_not_echange = Coins.objects.filter(market_exchange=None)
+            thread = threading.Thread(target=get_market_coins(coins_not_echange))
+            thread.start()
+        except:
+            pass
         
         queryset = Exchange.objects.all()
         serializer = ExchangeSerializer(queryset, many=True, read_only=True)

@@ -14,6 +14,25 @@ session = Session()
 session.headers.update(headers)
 delay = 3500
 
+def save_exchange(pk):
+    
+    url = f'https://api.coingecko.com/api/v3/exchanges/{pk}'
+    data = session.get(url)
+    response_data = data.json()
+    name = response_data['name'].lower()
+    image = response_data['image']
+    slug = response_data['name']
+    trade_url = response_data['url']
+    exchange = Exchange(
+                name=name,
+                image=image,
+                slug=slug,
+                trade_url=trade_url
+            )
+    exchange.save()
+
+    print('сохранено-', exchange.name)
+    return exchange
 
 def get_exchange(pk):
 
@@ -26,26 +45,10 @@ def get_exchange(pk):
     print(data, pk)
     echange_db = Exchange.objects.filter(name=pk).first()
     if echange_db:
-        return
+        return 
     else:
         try:
-            url = f'https://api.coingecko.com/api/v3/exchanges/{pk}'
-            data = session.get(url)
-            response_data = data.json()
-            name = response_data['name']
-            image = response_data['image']
-            slug = response_data['name']
-            trade_url = response_data['url']
-            exchange = Exchange(
-                name=name,
-                image=image,
-                slug=slug,
-                trade_url=trade_url
-            )
-            exchange.save()
-
-            print('сохранено-', exchange.id)
-            return exchange
+            return save_exchange(pk)
         except:
             print('none')
 
@@ -140,8 +143,15 @@ def add_market_for_coin(market_id, coin):
     """
 
     exchange = Exchange.objects.filter(name=market_id).first()
-    print(exchange)
-    if exchange:
+    print(exchange, market_id)
+    if not exchange:
+        try:
+            new_exchange = save_exchange(market_id)
+            coin.market_exchange.add(new_exchange)
+        except:
+            print('error')
+    else:
+        print('add')
         coin.market_exchange.add(exchange)
 
 
@@ -157,4 +167,5 @@ def get_market_coins(coins):
         data = response.json()
         for market in data['tickers']:
             market_name = market['market']['identifier']
-            add_market_for_coin(market_name.title(), coin)
+            time.sleep(2)
+            add_market_for_coin(market_name.lower(), coin)
