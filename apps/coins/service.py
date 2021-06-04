@@ -12,7 +12,7 @@ headers = {
 
 session = Session()
 session.headers.update(headers)
-delay = 50
+delay = 3500
 
 
 def get_exchange(pk):
@@ -62,11 +62,8 @@ def get_exchanges_list():
     for exchange in data:
         counter = counter+1
         exchange_pk = exchange['id']
-        print(counter)
-        if counter == 60:
-            counter = 0
-            time.sleep(60)
-        time.sleep(5)
+        print(counter)  
+        time.sleep(2)  
         get_exchange(exchange_pk)
 
 
@@ -123,6 +120,7 @@ def get_update_price_coins():
     while True:
         time.sleep(delay)
         for coin in Coins.objects.all():
+            time.sleep(2)
             print(coin)
             (
                 coin.price,
