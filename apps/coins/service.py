@@ -166,6 +166,7 @@ def get_market_coins(coins):
         response = session.get(url)
         data = response.json()
         for market in data['tickers']:
+            print(coin)
             market_name = market['market']['identifier']
             time.sleep(2)
             add_market_for_coin(market_name.lower(), coin)
