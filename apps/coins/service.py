@@ -12,7 +12,7 @@ headers = {
 
 session = Session()
 session.headers.update(headers)
-delay = 3500
+delay = 4500
 
 
 
