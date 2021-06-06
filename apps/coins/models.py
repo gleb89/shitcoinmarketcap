@@ -29,7 +29,7 @@ class Coins(models.Model):
     description    = models.TextField('Описание монеты', blank=True, null=True)
     image = models.CharField('Изображение монеты', max_length=255, null=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    price = models.FloatField('Цена монеты',default=0)
+    price = models.FloatField('Цена монеты', blank=True, null=True)
     market_cap = models.FloatField('Капитализация', blank=True, null=True)
     volume = models.TextField('Обьемы', blank=True, null=True)
     market_exchange = models.ManyToManyField(
