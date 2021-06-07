@@ -7,7 +7,11 @@ from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 from rest_framework_simplejwt import views as jwt_views
 
-from apps.coins.views import CoinsViewSet, CoinsPaginationViewSet, ExchangeViewSet
+from apps.coins.views import (
+                                CoinsViewSet,
+                                CoinsPaginationViewSet,
+                                ExchangeViewSet,
+                                CoinsNewViewSet)
 from apps.users.views import UserCreate
 from apps.comments.views import CommentsViewSet
 
@@ -17,6 +21,7 @@ router.register(r'coinslist', CoinsViewSet, basename='Coins')
 router.register(r'user', UserCreate, basename='User')
 router.register(r'comments', CommentsViewSet, basename='Commentsr')
 router.register(r'exchange', ExchangeViewSet, basename='Exchange')
+router.register(r'updatecoins', CoinsNewViewSet, basename='updatecoins')
 
 
 urlpatterns = [
