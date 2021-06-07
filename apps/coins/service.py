@@ -155,16 +155,19 @@ def get_update_price_coins():
 
     for coin in Coins.objects.all():    
         print(coin)
-        (
-            coin.price,
-            coin.market_cap,
-            coin.volume,
-            coin.image,
-            coin.price_exc,
-            coin.board_price
-        ) = update_price_coin(coin.name)
-        coin.save()
-        time.sleep(3)
+        time.sleep(5)
+        try:
+            (
+                coin.price,
+                coin.market_cap,
+                coin.volume,
+                coin.image,
+                coin.price_exc,
+                coin.board_price
+            ) = update_price_coin(coin.name)
+            coin.save()
+        except:
+            print('except')
 
 
 def add_market_for_coin(market_id, coin):
