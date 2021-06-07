@@ -59,5 +59,18 @@ class ExchangeViewSet(viewsets.ViewSet):
         serializer = ExchangeSerializer(queryset, many=True, read_only=True)
         return Response(serializer.data)
 
-thread = threading.Thread(target=get_update_price_coins)
-thread.start()
+class CoinsNewViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        """ 
+
+        список обьектов без пагинации
+
+        """
+        thread = threading.Thread(target=get_update_price_coins)
+        thread.start()
+        queryset = Coins.objects.all()
+        serializer = CoinsSerializer(queryset, many=True, read_only=True)
+        return Response(serializer.data)
+
+
