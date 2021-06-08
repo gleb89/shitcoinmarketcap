@@ -93,8 +93,7 @@ def get_chart_data(id):
         '''
         response_price_7d = session.get(url_price_7d)
         data_price = response_price_7d.json()
-        data_price_today = int(
-            data_price['market_data']['current_price']['usd'])
+        data_price_today = data_price['market_data']['current_price']['usd']
         today_date = datetime.date.today() - datetime.timedelta(days=days-1)
         list_price_7d[str(days)] = data_price_today
         days = days - 1
