@@ -118,8 +118,8 @@ def update_price_coin(coin_symbol):
     volume = int(data['market_data']['total_volume']['usd'])
     image = str(data['image']['small'])
     price_exc = int(data['market_data']['price_change_percentage_24h'])
-    print(type(price))
-    return market_cap, volume, image, price_exc, price_7d
+
+    return price, market_cap, volume, image, price_exc, price_7d
 
 
 

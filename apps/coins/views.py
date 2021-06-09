@@ -53,7 +53,7 @@ class CoinsViewSet(viewsets.ViewSet):
             coin.image,
             coin.price_exc,
             coin.board_price
-        ) = update_price_coin(coin.name)
+        ) = update_price_coin(name)
         coin.save()
         serializer = CoinsSerializer(coin)
         return Response(serializer.data)
