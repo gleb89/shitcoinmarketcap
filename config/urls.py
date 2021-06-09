@@ -11,7 +11,9 @@ from apps.coins.views import (
                                 CoinsViewSet,
                                 CoinsPaginationViewSet,
                                 ExchangeViewSet,
-                                CoinsNewViewSet)
+                                CoinsNewViewSet,
+                                snippet_list
+                                )
 from apps.users.views import UserCreate
 from apps.comments.views import CommentsViewSet
 
@@ -24,6 +26,8 @@ router.register(r'exchange', ExchangeViewSet, basename='Exchange')
 router.register(r'updatecoins', CoinsNewViewSet, basename='updatecoins')
 
 
+
+
 urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api/admin/', admin.site.urls),
@@ -32,9 +36,11 @@ urlpatterns = [
         description="API for all things …",
         version="1.0.0"
     ), name='openapi-schema'),
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(),
+    path('api/update/<str:name>/', snippet_list,
+         name='updatetokendata'),
+    path('api/login/', jwt_views.TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(),
+    path('api/ref/', jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
 
 ]

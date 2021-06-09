@@ -64,4 +64,9 @@
         docker-compose run djapi python manage.py createsuperuser
         docker-compose up --build
         docker-compose up -d
+
+5 . Requests api JWT
+
+   -      Authorization :Bearer 'token' 
+    
     

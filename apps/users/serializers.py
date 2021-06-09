@@ -6,7 +6,7 @@ from rest_framework.response import Response
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password')
+        fields = ('username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
             return ''
         else:
             password = validated_data.pop('password')
-            user = User(username = validated_data['email'],email=validated_data['email'])
+            user = User(username = validated_data['username'],email=validated_data['email'])
             user.set_password(password)
             user.save()
             return user
