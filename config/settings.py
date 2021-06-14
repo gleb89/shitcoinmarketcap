@@ -51,7 +51,9 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://wrpf.site",
-    "http://wrpf.site"
+    "http://wrpf.site",
+    "http://85.172.91.63"
+    
 ]
 
 MIDDLEWARE = [
