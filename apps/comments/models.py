@@ -7,9 +7,7 @@ from django.db import models
 
 
 class Comments(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             verbose_name='User коментария',
-                             on_delete=models.CASCADE)
+    user_id = models.CharField('Юсер комментария', max_length=255)
     text_comment = models.TextField(verbose_name='текст коментария')
     parent = models.ForeignKey('self',
                                verbose_name='Родительский коментарий',
@@ -18,8 +16,7 @@ class Comments(models.Model):
                                related_name='children',
                                on_delete=models.CASCADE
                                )
-    user_parent = models.IntegerField(
-        'Юсер коментария родителя', blank=True, null=True)
+    user_parent = models.CharField('Юсер комментария родителя', max_length=255,null=True,blank=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')

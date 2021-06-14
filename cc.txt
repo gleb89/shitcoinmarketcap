@@ -1,0 +1,8 @@
+{
+    "user_id": "eeee",
+    "text_comment": "333",
+    "user_parent": "dddd",
+    "object_id": 3,
+    "parent": 3,
+    "content_type": 8
+}

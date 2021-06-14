@@ -35,3 +35,24 @@ class CommentsSerializer(serializers.ModelSerializer):
         list_serializer_class = FilterReviewListSerializer
         model = Comments
         fields = '__all__'
+
+
+class CommentsPostSerializer(serializers.ModelSerializer):
+    children = [],
+    class Meta:
+        model = Comments
+        fields = [
+            'id',
+            'user_id',
+            'text_comment',
+            'children',
+            'user_parent',
+            'object_id',
+            'parent',
+            'content_type',
+            'updated'
+            ]
+        read_only_fields = ['children']
+
+
+
