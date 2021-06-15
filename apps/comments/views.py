@@ -21,7 +21,6 @@ class CommentsViewSet(viewsets.ModelViewSet):
                 -вывод списка всех  обьектов
 
         """
-        # self.permission_classes = (AllowAny,)
         params = self.request.query_params
         if params:
             coin_id = params['coin_id']
@@ -48,12 +47,5 @@ class CommentsViewSet(viewsets.ModelViewSet):
  
 
 
-rr = {
-    "user_id": "ere",
-    "text_comment": "wewewe",
-    "user_parent": "2",
-    "object_id": 11,
-    "parent": 7,
-    "content_type": 8
-}
+
 
