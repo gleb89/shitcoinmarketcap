@@ -1,5 +1,8 @@
 import threading
 
+
+from django.shortcuts import redirect
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import viewsets
@@ -15,7 +18,8 @@ from .serializer import CoinsSerializer, ExchangeSerializer
 
 
 
-
+def redirect_home_on_admin(request):
+    return redirect('/api/admin/')
 
 
 class CoinsPaginationViewSet(viewsets.ModelViewSet):

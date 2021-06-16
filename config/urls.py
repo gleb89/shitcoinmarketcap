@@ -12,7 +12,8 @@ from apps.coins.views import (
                                 CoinsPaginationViewSet,
                                 ExchangeViewSet,
                                 CoinsNewViewSet,
-                                snippet_list
+                                snippet_list,
+                                redirect_home_on_admin
                                 )
 from apps.users.views import UserCreate
 from apps.comments.views import CommentsViewSet
@@ -29,6 +30,7 @@ router.register(r'updatecoins', CoinsNewViewSet, basename='updatecoins')
 
 
 urlpatterns = [
+    path('', include('apps.coins.urls')),
     path('api/v1/', include(router.urls)),
     path('api/admin/', admin.site.urls),
     path('api/openapi/', get_schema_view(
