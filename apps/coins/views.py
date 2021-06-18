@@ -12,7 +12,8 @@ from rest_framework.decorators import action
 from .models import Coins, Exchange
 from .service import (
                             get_market_coins,
-                            update_price_coin
+                            update_price_coin,
+                            get_exchanges_list
                             )
 from .serializer import CoinsSerializer, ExchangeSerializer
 from .tasks import gettts
@@ -77,8 +78,8 @@ class ExchangeViewSet(viewsets.ViewSet):
         список бирж
 
         """  
-        # thread = threading.Thread(target=get_exchanges_list)
-        # thread.start()
+        thread = threading.Thread(target=get_exchanges_list)
+        thread.start()
         
         try:
             coins_not_echange = Coins.objects.filter(market_exchange=None)
