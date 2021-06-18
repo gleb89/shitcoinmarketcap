@@ -41,7 +41,7 @@ class CoinsViewSet(viewsets.ViewSet):
         список обьектов без пагинации
 
         """
-        gettts.delay()
+        # gettts.delay()
         print(request.user)
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
