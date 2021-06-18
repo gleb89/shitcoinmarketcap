@@ -20,6 +20,10 @@ services:
   djapi:
     restart: always
     build: .
+    # environment: 
+      # - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      # - CELERY_BROKER=redis://redis:6379/0
+      # - CELERY_BACKEND=redis://redis:6379/0
     depends_on:
       - pgdata
     command: gunicorn config.wsgi --bind 0.0.0.0:80
@@ -27,6 +31,8 @@ services:
 
     networks:
       - backands_network
+
+
 
   nginx:
     image: nginx:1.13
@@ -40,6 +46,43 @@ services:
     ports:
       - "80:80"
       - "443:443"
+
+  redis:
+    image: redis:alpine
+    depends_on: 
+      - djapi
+    networks:
+      - backands_network
+
+  celery:
+    build: .
+    command: celery -A config worker -l info
+        # volumes:
+        #   - ./project/:/usr/src/app/
+    environment:
+      # - DEBUG=1
+      - SECRET_KEY=django-insecure-s%2p*3c2-qj89ew(a2%oy#5ntt8ee*u^2v9=n_vd-e!*1l#-8u
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+    networks:
+      - backands_network
+
+  celery-beat:
+    build: .
+    command: celery -A config beat -l info
+        # volumes:
+        #   - ./project/:/usr/src/app/
+    environment:
+      # - DEBUG=1
+      - SECRET_KEY=django-insecure-s%2p*3c2-qj89ew(a2%oy#5ntt8ee*u^2v9=n_vd-e!*1l#-8u
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+    networks:
+      - backands_network
+
+
   
  
 volumes:

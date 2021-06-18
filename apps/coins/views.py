@@ -10,11 +10,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import action
 
 from .models import Coins, Exchange
-from .service import (get_update_price_coins,
+from .service import (
                             get_market_coins,
                             update_price_coin
                             )
 from .serializer import CoinsSerializer, ExchangeSerializer
+from .tasks import gettts
 
 
 
@@ -40,7 +41,7 @@ class CoinsViewSet(viewsets.ViewSet):
         список обьектов без пагинации
 
         """
-        
+        gettts.delay()
         print(request.user)
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
@@ -78,6 +79,7 @@ class ExchangeViewSet(viewsets.ViewSet):
         """  
         # thread = threading.Thread(target=get_exchanges_list)
         # thread.start()
+        
         try:
             coins_not_echange = Coins.objects.filter(market_exchange=None)
             thread = threading.Thread(target=get_market_coins(coins_not_echange))
@@ -96,8 +98,11 @@ class CoinsNewViewSet(viewsets.ViewSet):
         список обьектов без пагинации
 
         """
-        thread = threading.Thread(target=get_update_price_coins)
-        thread.start()
+
+        # tasks.get_update_price_coins.delay()
+        # thread = threading.Thread(target=get_update_price_coins)
+        # thread.start()
+        
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
         return Response(serializer.data)

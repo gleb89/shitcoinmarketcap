@@ -1,11 +1,27 @@
 from pathlib import Path
+
+
+
 import os
+from celery.schedules import crontab
+
+import config.tasks
+
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
 
+CELERY_BEAT_SCHEDULE = {
+    "sample_task": {
+        "task": "config.tasks.sample_task",
+        # "schedule": crontab(minute="*/1"),
+        "schedule": crontab(minute=0, hour='*/3'),
+    },
+}
 POSTGRES_USER=os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD=os.getenv('POSTGRES_PASSWORD')
 POSTGRES_DB=os.getenv('POSTGRES_DB')
@@ -44,6 +60,7 @@ INSTALLED_APPS = [
     'apps.coins.apps.CoinsConfig',
     'apps.users.apps.UsersConfig',
     'apps.comments.apps.CommentsConfig',
+    
 
     'rest_framework',
 ]
@@ -203,3 +220,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

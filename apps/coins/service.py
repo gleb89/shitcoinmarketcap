@@ -124,27 +124,7 @@ def update_price_coin(coin_symbol):
 
 
 
-# def get_update_price_coins():
 
-#     """
-#         update price coin
-#     """
-
-#     while True:
-#         time.sleep(delay)
-#         for coin in Coins.objects.all():
-            
-#             print(coin)
-#             (
-#                 coin.price,
-#                 coin.market_cap,
-#                 coin.volume,
-#                 coin.image,
-#                 coin.price_exc,
-#                 coin.board_price
-#             ) = update_price_coin(coin.name)
-#             coin.save()
-#             time.sleep(4)
 
 def get_update_price_coins():
 

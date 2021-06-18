@@ -45,6 +45,42 @@ services:
       - "443:443"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
+  redis:
+    image: redis:alpine
+    depends_on: 
+      - djapi
+    networks:
+      - backands_network
+  
+  celery:
+    build: .
+    command: celery -A config worker -l info
+          # volumes:
+          #   - ./project/:/usr/src/app/
+    environment:
+        # - DEBUG=1
+      - SECRET_KEY=django-insecure-s%2p*3c2-qj89ew(a2%oy#5ntt8ee*u^2v9=n_vd-e!*1l#-8u
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+    networks:
+      - backands_network
+  
+  celery-beat:
+    build: .
+    command: celery -A config beat -l info
+          # volumes:
+          #   - ./project/:/usr/src/app/
+    environment:
+        # - DEBUG=1
+      - SECRET_KEY=django-insecure-s%2p*3c2-qj89ew(a2%oy#5ntt8ee*u^2v9=n_vd-e!*1l#-8u
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+    networks:
+      - backands_network
+
+
   certbot:
     image: certbot/certbot
     restart: unless-stopped
