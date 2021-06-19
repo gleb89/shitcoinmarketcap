@@ -13,6 +13,8 @@
     |   ├── settings.py
     |   ├── urls.py
     |   ├── wsgi.py
+        ├── celery.py
+        ├── tasks.py
     |   ├── asgi.py
     |   └── keysetting.py
     ├── data

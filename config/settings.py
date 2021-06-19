@@ -38,7 +38,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-s%2p*3c2-qj89ew(a2%oy#5ntt8ee*u^2v9=n_vd-e!*1l#-8u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'apicrypto.ru','wrpf.site']
 

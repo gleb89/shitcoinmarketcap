@@ -1,5 +1,7 @@
 import datetime
 import time
+
+
 from requests import Session
 
 
@@ -15,9 +17,10 @@ session.headers.update(headers)
 delay = 4500
 
 
-
 def save_exchange(pk):
-    
+
+    """ save in database data exchange"""
+
     url = f'https://api.coingecko.com/api/v3/exchanges/{pk}'
     data = session.get(url)
     response_data = data.json()
@@ -26,15 +29,14 @@ def save_exchange(pk):
     slug = response_data['name']
     trade_url = response_data['url']
     exchange = Exchange(
-                name=name,
-                image=image,
-                slug=slug,
-                trade_url=trade_url
-            )
+        name=name,
+        image=image,
+        slug=slug,
+        trade_url=trade_url
+    )
     exchange.save()
     print('сохранено-', exchange.name)
     return exchange
-
 
 
 def get_exchange(pk):
@@ -48,7 +50,7 @@ def get_exchange(pk):
     print(data, pk)
     echange_db = Exchange.objects.filter(name=pk).first()
     if echange_db:
-        return 
+        return
     else:
         try:
             return save_exchange(pk)
@@ -56,13 +58,12 @@ def get_exchange(pk):
             print('none')
 
 
-
-
 def get_exchanges_list():
 
     """
         get names list coins all 
     """
+    
     counter = 0
     url = 'https://api.coingecko.com/api/v3/exchanges/list'
     response_exchanges = session.get(url)
@@ -70,17 +71,15 @@ def get_exchanges_list():
     for exchange in data:
         counter = counter+1
         exchange_pk = exchange['id']
-        print(counter)  
-        time.sleep(2)  
+        print(counter)
+        time.sleep(2)
         get_exchange(exchange_pk)
-
-
 
 
 def get_chart_data(id):
 
     """
-        history data (price 7d) coin name
+        history data (price 7d) for coin name
     """
 
     list_price_7d = {}
@@ -100,12 +99,10 @@ def get_chart_data(id):
     return list_price_7d
 
 
-
-
 def update_price_coin(coin_symbol):
 
     """
-        get name_coin  url
+        request for  name_coin data
     """
 
     name_coin = coin_symbol.lower()
@@ -122,17 +119,12 @@ def update_price_coin(coin_symbol):
     return price, market_cap, volume, image, price_exc, price_7d
 
 
-
-
-
-
 def get_update_price_coins():
-
     """
-        update price coin
+        update data for  coins
     """
 
-    for coin in Coins.objects.all():    
+    for coin in Coins.objects.all():
         print(coin)
         time.sleep(5)
         try:
@@ -166,8 +158,6 @@ def add_market_for_coin(market_id, coin):
     else:
         print('add')
         coin.market_exchange.add(exchange)
-
-
 
 
 def get_market_coins(coins):

@@ -30,20 +30,21 @@ router.register(r'updatecoins', CoinsNewViewSet, basename='updatecoins')
 
 
 urlpatterns = [
-    path('', include('apps.coins.urls')),
-    path('api/v1/', include(router.urls)),
-    path('api/admin/', admin.site.urls),
-    path('api/openapi/', get_schema_view(
-        title="Your Project",
-        description="API for all things …",
-        version="1.0.0"
-    ), name='openapi-schema'),
-    path('api/update/<str:name>/', snippet_list,
-         name='updatetokendata'),
-    path('api/login/', jwt_views.TokenObtainPairView.as_view(),
-         name='token_obtain_pair'),
-    path('api/ref/', jwt_views.TokenRefreshView.as_view(),
-         name='token_refresh'),
+     path('',redirect_home_on_admin,name='redirect_admin'),
+     path('', include('apps.coins.urls')),
+     path('api/v1/', include(router.urls)),
+     path('api/admin/', admin.site.urls),
+     path('api/openapi/', get_schema_view(
+          title="Your Project",
+          description="API for all things …",
+          version="1.0.0"
+     ), name='openapi-schema'),
+     path('api/update/<str:name>/', snippet_list,
+          name='updatetokendata'),
+     path('api/login/', jwt_views.TokenObtainPairView.as_view(),
+          name='token_obtain_pair'),
+     path('api/ref/', jwt_views.TokenRefreshView.as_view(),
+          name='token_refresh'),
 
 ]
 

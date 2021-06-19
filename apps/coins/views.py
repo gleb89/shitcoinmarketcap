@@ -31,10 +31,9 @@ class CoinsPaginationViewSet(viewsets.ModelViewSet):
     paginate_by = 1
     pagination_class = PageNumberPagination
 
-from rest_framework.permissions import IsAuthenticated,AllowAny
+
 
 class CoinsViewSet(viewsets.ViewSet):
-
 
     def list(self, request):
         """ 
@@ -42,14 +41,18 @@ class CoinsViewSet(viewsets.ViewSet):
         список обьектов без пагинации
 
         """
-        # gettts.delay()
-        print(request.user)
+
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
         return Response(serializer.data)
 
     @action(detail=False, methods=['get'])
     def update_one_data_coin(self,request,name):
+
+        """ 
+        update data coin name
+        """
+
         coin = Coins.objects.get(name=name)
         
         (
@@ -73,11 +76,11 @@ snippet_list = CoinsViewSet.as_view({
 class ExchangeViewSet(viewsets.ViewSet):
 
     def list(self, request):
+
         """ 
-
         список бирж
-
         """  
+
         thread = threading.Thread(target=get_exchanges_list)
         thread.start()
         
@@ -94,15 +97,10 @@ class ExchangeViewSet(viewsets.ViewSet):
 class CoinsNewViewSet(viewsets.ViewSet):
 
     def list(self, request):
+
         """ 
-
         список обьектов без пагинации
-
         """
-
-        # tasks.get_update_price_coins.delay()
-        # thread = threading.Thread(target=get_update_price_coins)
-        # thread.start()
         
         queryset = Coins.objects.all()
         serializer = CoinsSerializer(queryset, many=True, read_only=True)
